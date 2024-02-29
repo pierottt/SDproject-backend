@@ -23,7 +23,8 @@ const UserSchema = new mongoose.Schema({
         select : false
     },
     tel: {
-        type:String
+        type:String,
+        required : [true,'Please add a telephone number']
     },
     role : {
         type:String,

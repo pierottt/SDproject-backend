@@ -83,7 +83,7 @@ exports.getCar=async(req,res,next)=>{
 //@desc     Create new car
 //@route    POST /api/v1/cars
 //@access   Private
-exports.createCars=async(req,res,next)=>{
+exports.createCar=async(req,res,next)=>{
     const car = await Car.create(req.body);
     res.status(201).json({success:true, data:car});
 };

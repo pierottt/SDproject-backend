@@ -121,7 +121,7 @@ exports.deleteRent=async(req,res,next)=>{
             return res.status(401).json({success:false, message:`User ${req.user.id} is not authorized to delete this rent`});
         }
         await rent.deleteOne();
-        res.status(200).json({success:true, data:rent});
+        res.status(200).json({success:true, data:{}});
     } catch (error){
         console.log(error);
         res.status(500).json({success:false,message:"Cannot delete rent"});

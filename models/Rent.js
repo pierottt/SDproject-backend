@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const RentSchema = new mongoose.Schema({
-    apptDate: {
+    rentDate: {
         type:Date,
         required:true
     },
@@ -21,4 +21,4 @@ const RentSchema = new mongoose.Schema({
     }
 });
 
-module.exports=mongoose.model('Rent',Rent);
+module.exports=mongoose.model('Rent',RentSchema);
