@@ -127,3 +127,47 @@ exports.deleteRent=async(req,res,next)=>{
         res.status(500).json({success:false,message:"Cannot delete rent"});
     }
 }
+
+exports.getChart = async (req,res,next) => {
+    let query = Car.find().populate("rents");
+    const cars = await query;
+    var labels = [];
+    var data = [];
+    const promises = cars.map(async element => {
+        let query2;
+        query2 = Rent.find({ car: element._id });
+        const rents = await query2;
+        labels.push(element.name);
+        data.push(rents.length);
+    });
+    // Wait for all promises to resolve
+    await Promise.all(promises);
+    //console.log(query);
+    //console.log(labels);
+    //console.log(data);
+    
+    const chartData = {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Number of Car Rentals",
+                data: data
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    };
+    
+    const chartQueryString = encodeURIComponent(JSON.stringify(chartData));
+    const chartURL = `https://quickchart.io/chart?c=${chartQueryString}`;
+
+    return res.status(200).json({success:true, chartURL});
+}
