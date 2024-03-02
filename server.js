@@ -49,7 +49,7 @@ app.use(cookieParser());
 app.use(mongoSanitize());
 
 //Set security helmet
-app.use(helemt());
+app.use(helmet());
 
 //Prevent XSS attacks
 app.use(xss());
